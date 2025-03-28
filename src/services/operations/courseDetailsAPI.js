@@ -28,6 +28,29 @@ const {
   SEARCH_COURSES_API,
 } = courseEndpoints;
 
+export const fetchStudentCourses = async (token) => {
+  try {
+      const response = await fetch('/api/student/courses', {
+          method: 'GET',
+          headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json',
+          },
+      });
+
+      if (!response.ok) {
+          throw new Error('Failed to fetch student courses');
+      }
+
+      const data = await response.json();
+      return data;
+  } catch (error) {
+      console.error(error);
+      return [];
+  }
+};
+
+
 export const getAllCourses = async () => {
   const toastId = toast.loading("Loading...");
   let result = [];
